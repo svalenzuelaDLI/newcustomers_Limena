@@ -1,42 +1,763 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Surveys by Comercia Marketing.">
+    <meta name="author" content="Francisco Velasquez">
+    <title>Distribuidora Limena Inc</title>
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="~/Content/images/icon/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="~/Content/surveysContent/img/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="~/Content/surveysContent/img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="~/Content/surveysContent/img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="~/Content/surveysContent/img/apple-touch-icon-144x144-precomposed.png">
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,500,600" rel="stylesheet">
+    <!-- BASE CSS -->
+    <link href="~/Content/surveysContent/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/surveysContent/css/menu.css" rel="stylesheet">
+    <link href="~/Content/surveysContent/css/style.css" rel="stylesheet">
+    <link href="~/Content/surveysContent/css/vendors.css" rel="stylesheet">
+    <!-- YOUR CUSTOM CSS -->
+    <link href="~/Content/surveysContent/css/custom.css" rel="stylesheet">
+
+    <!-- MODERNIZR MENU -->
+    <script src="~/Content/surveysContent/js/modernizr.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="~/Content/surveysContent/vendor/calendarrangepicker/css/daterangepicker.css" />
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <!--select2-->
+    <link href="~/Content/surveysContent/vendor/select2/css/select2.css" rel="stylesheet">
+    <!--DROPIFY-->
+    <link rel="stylesheet" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css" type="text/css" />
+    <style>
+        /* Extra large devices (large laptops and desktops, 1200px and up) */
+        @@media only screen and (min-width: 1200px) {
+
+            div.submit {
+                margin-top: 2185px;
+            }
+            div.largediv {
+                margin-top: 415px;
+            }
+        }
+        @@media screen and (max-width: 1200px) {
+            div.submit {
+                margin-top: 2185px;
+            }
+
+            div.largediv {
+                margin-top: 415px;
+            }
+        }
+        @@media screen and (max-width: 780px) {
+            div.submit {
+                margin-top: 0px;
+            }
+
+            div.largediv {
+                margin-top: 0px;
+            }
+        }
+    </style>
+
+
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+
+
+    <div id="preloader">
+        <div data-loader="circle-side"></div>
+    </div><!-- /Preload -->
+
+    <div id="loader_form">
+        <div data-loader="circle-side-2"></div>
+    </div><!-- /loader_form -->
+
+    <nav>
+        <ul class="cd-primary-nav">
+            <li><a href="@Url.Action("Home","Home")" class="animated_link">About Us</a></li>
+
+        </ul>
+    </nav>
+    <!-- /menu -->
+
+    @RenderBody()
+
+    <!-- /container-fluid -->
+    <div class="cd-overlay-nav">
+        <span></span>
+    </div>
+    <!-- /cd-overlay-nav -->
+    <div class="cd-overlay-content">
+        <span></span>
+    </div>
+    <!-- /cd-overlay-content -->
+    @*<a href="#0" class="cd-nav-trigger">Menu<span class="cd-icon"></span></a>*@
+    <!-- /menu button -->
+    <!-- Modal terms -->
+    <div class="modal fade" id="terms-txt" tabindex="-1" role="dialog" aria-labelledby="termsLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="termsLabel">Terms and conditions</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        TÉRMINOS DE SERVICIO
+                        <br />
+                        ----
+                        <br />
+                        INFORMACIÓN GENERAL
+                        <br />
+                        Este sitio web es operado por Distribuidora Limena Inc. En todo el sitio, los términos “nosotros”, “nos” y “nuestro” se refieren a Distribuidora Limena Inc. Distribuidora Limena Inc ofrece este sitio web, incluyendo toda la información, herramientas y servicios disponibles para ti en este sitio, el usuario, está condicionado a la aceptación de todos los términos, condiciones, políticas y notificaciones aquí establecidos.
+                        <br />
+                        Al visitar nuestro sitio y/o comprar algo de nosotros, paticipas en nuestro “Servicio” y aceptas los siguientes términos y condiciones (“Términos de Servicio”, “Términos”), incluídos todos los términos y condiciones adicionales y las polítias a las que se hace referencia en el presente documento y/o disponible a través de hipervínculos. Estas Condiciones de Servicio se aplican a todos los usuarios del sitio, incluyendo si limitación a usuarios que sean navegadores, proveedores, clientes, comerciantes, y/o colaboradores de contenido.
+                    </p>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn_1" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <!-- COMMON SCRIPTS -->
+    <script src="~/Content/surveysContent/js/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/surveysContent/js/common_scripts.min.js"></script>
+    <script src="~/Content/surveysContent/js/velocity.min.js"></script>
+    <script src="~/Content/surveysContent/js/functions.js"></script>
+    <!-- Wizard script -->
+    <script src="~/Content/surveysContent/js/survey_func.js"></script>
+    <!--OTHERS-->
+    <script type="text/javascript" src="~/Content/surveysContent/vendor/calendarrangepicker/js/moment.min.js"></script>
+    <script type="text/javascript" src="~/Content/surveysContent/vendor/calendarrangepicker/js/daterangepicker.min.js"></script>
+    <!--select2-->
+    <script src="~/Content/surveysContent/vendor/select2/js/select2.full.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
+    <script src="~/Content/surveysContent/vendor/dropify.js"></script>
+    <script src="~/Content/surveysContent/vendor/JIC.js"></script>
+
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(function () {
+                var $src = $('#telefono1'),
+                    $dst = $('#telefono2');
+                $src.on('input', function () {
+                    $dst.val($src.val());
+                });
+            });
+
+            $(function () {
+                var $src2 = $('#correo1'),
+                    $dst2 = $('#correo2');
+                $src2.on('input', function () {
+                    $ds2t.val($src2.val());
+                });
+            });
+
+            $("#ReciboMercaderiaDia").select2({
+                // options
+                placeholder: "Dia de recibo de mercaderia (*)"
+            });
+
+            $(function () {
+                $('#HorarioOperacion').daterangepicker({
+                    timePicker: true,
+                    autoApply: true,
+                    timePicker24Hour: false,
+                    timePickerIncrement: 1,
+                    timePickerSeconds: false,
+                    locale: {
+                        format: 'HH:mm'
+                    }
+                }).on('show.daterangepicker', function (ev, picker) {
+                    picker.container.find(".calendar-table").hide();
+                });
+            });
+
+
+            $.support.cors = true;
+            $.ajaxSetup({ cache: false });
+            var city = '';
+            var hascity = 0;
+            var hassub = 0;
+            var state = '';
+            var nbhd = '';
+            var subloc = '';
+
+            $('#ZipCode2').keyup(function () {
+                $zval = $('#ZipCode2').val();
+
+                if ($zval.length == 5) {
+                    $jCSval = getCityState($zval, true);
+                }
+            });
+
+            function getCityState($zip, $blnUSA) {
+                var date = new Date();
+                $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?address=' + $zip + '&key=AIzaSyC3zDvE8enJJUHLSmhFAdWhPRy_tNSdQ6g&type=json&_=' + date.getTime(), function (response) {
+                    //find the city and state
+                    var address_components = response.results[0].address_components;
+                    $.each(address_components, function (index, component) {
+                        var types = component.types;
+                        $.each(types, function (index, type) {
+                            if (type == 'locality') {
+                                city = component.long_name;
+                                hascity = 1;
+                            }
+                            if (type == 'administrative_area_level_1') {
+                                state = component.long_name;
+                            }
+                            if (type == 'neighborhood') {
+                                nbhd = component.long_name;
+                            }
+                            if (type == 'sublocality') {
+                                subloc = component.long_name;
+                                hassub = 1;
+                            }
+                        });
+                    });
+
+                    //pre-fill the city and state
+                    if (hascity == 1) {
+                        $('#cityId').val(city);
+                        $('#question_13').text(city);
+                    } else if (hassub == 1) {
+                        $('#cityId').val(subloc);
+                        $('#question_13').text(subloc);
+                    } else {
+                        $('#cityId').val(nbhd);
+                        $('#question_13').text(nbhd);
+                    }
+                    $('#stateId').val(state);
+                    $('#question_14').text(state);
+                    //reset
+                    var hascity = 0;
+                    var hassub = 0;
+                });
+            }
+
+
+
+
+        });
+    </script>
+
+    <script>
+        function horarioasignar() {
+            var val = $("#HorarioOperacion").val();
+            $("#horarioshow").text(val)
+        }
+        function diaasignar() {
+            var val = $("#ReciboMercaderiaDia").val();
+            $("#diareciboshow").text(val)
+        }
+        function paisasignar() {
+            var val = $("#pais").val();
+            $("#paisshow").text(val)
+        }
+        function areaasignar() {
+            var val = $("#arearecibo").val();
+            $("#areashow").text(val)
+        }
+        function tamanoasignar() {
+            var val = $("#TamanoTienda").val();
+            $("#tamanoshow").text(val)
+        }
+
+    </script>
+
+
+
+
+    <script type='text/javascript'>
+
+        function validateRep() {
+            var inputvalue = $("#representante").val().toString();
+            if (inputvalue != "") {
+
+                if (inputvalue.length > 6) {
+                    var codigoreal = inputvalue.substring(6);
+
+                    if (codigoreal != "0" && codigoreal != "0") {
+                         var listreps = '@Html.Raw(@ViewBag.lstreps)';
+           
+                    
+                    var exist = listreps.indexOf(codigoreal);
+                    if (exist > -1) { } else {alert("Codigo no encontrado");$("#representante").val("");}
+                    } else {
+                        alert("Codigo no encontrado");
+                        $("#representante").val("");
+                    }
+                   
+                } else {
+                    alert("Codigo no encontrado");
+                    $("#representante").val("");
+                }
+
+
+            }
+           
+        }
+
+        function containsObject(obj, list) {
+          
+            if (list.indexOf(obj) !== -1) {
+                return true;
+            } else {
+                return false;
+            }
+        
+        }
+
+
+        $(document).ready(function () {
+            //option A
+            $("#wrapped").submit(function (e) {
+                $("#subbtnenviar").attr("disabled", true);
+                $("#loader_form").show();
+                e.preventDefault(e);
+                var idcust = $("#idifexist").val();
+                var CardName = $("#compania").val();
+                var Phone1 = $("#question_7").text().trim();
+                if (Phone1 == null || Phone1 == "") {
+                    Phone1=$("#question_5").text().trim();
+                }
+
+                var E_Mail = $("#question_8").text().trim();
+
+                if (E_Mail == null || E_Mail=="" ) {
+                    E_Mail = $("#question_6").text().trim();
+                }
+
+                var IntrntSite = $("#question_9").text().trim();
+                if (IntrntSite == null) {
+                    IntrntSite = "";
+                }
+                var TAXID = $("#question_10").text().trim();
+                var TAXCERTNUM = $("#question_11").text().trim();
+                if (TAXCERTNUM == null) {
+                    TAXCERTNUM = "";
+                }
+                //Datos de contacto
+                var FirstName = $("#question_2").text().trim();
+                var LastName = $("#question_3").text().trim();
+                //var Position = $("#question_4").text().trim();
+                var Tel1 = $("#question_5").text().trim();
+                var E_MailL = $("#question_6").text().trim();
+                //Direccion
+                var countryId = $("#paisshow").text().trim();
+                var stateId = $("#question_14").text().trim();
+                var cityId = $("#question_13").text().trim();
+                var Street = $("#question_15").text().trim();
+                var ZipCode = $("#question_12").text().trim();
+
+                //Verificamos servicios seleccionados
+                var services = $("#question_22").text().trim();
+                //Verificamos Etnias seleccionadas
+                var etnias = $("#question_23").text().trim();
+
+                //OTROS
+                var HorarioOperacion = $("#horarioshow").text().trim();
+                var ReciboMercaderiaDia = $("#diareciboshow").text().trim();
+
+                var ReciboMercaderiaArea = $("#areashow").text().trim();
+                var MuelleDescargasel = $("#question_25").text().trim();
+                var TamanoTienda = $("#tamanoshow").text().trim();
+
+                var MuelleDescarga = false;
+                if (MuelleDescargasel=="Si") {
+                    MuelleDescarga = true;
+                }
+
+                var repp = $("#representante").val();
+                var cargocontacto = $("#contactposition").val();
+                var rep = 0;
+                if (repp == "") {
+                    rep = 0;
+                } else {
+                    if (repp.length > 6) {
+                        var codigoreal = repp.substring(6);
+                        rep = codigoreal;
+                
+                } else {
+                        rep = 0;
+                }
+                    
+                }
+                //int idcustomer, string CardName, string Phone1, string E_Mail, string IntrntSite, string TAXID, string TAXCERTNUM, string FirstName, string LastName, string Position,
+                //string Tel1, string E_MailL, string countryId, string stateId, string cityId, string Street, string ZipCode, string servicesSelected,
+                //string etniasselected, string HorarioOperacion, string ReciboMercaderiaDia, string ReciboMercaderiaArea, Boolean MuelleDescarga, string TamanoTienda
+                $.ajax
+                    ({
+                        url: '/Home/UpdateInformationNewCustomer',
+                        type: 'POST',
+                        datatype: 'application/json',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            idcustomer: idcust,
+                            CardName: CardName,
+                            Phone1: Phone1,
+                            E_Mail: E_Mail,
+                            IntrntSite: IntrntSite,
+                            TAXID: TAXID,
+                            TAXCERTNUM: TAXCERTNUM,
+                            FirstName: FirstName,
+                            LastName: LastName,
+                            Position: cargocontacto,
+                            Tel1: Tel1,
+                            E_MailL: E_MailL,
+                            countryId: countryId,
+                            stateId: stateId,
+                            cityId: cityId,
+                            Street: Street,
+                            ZipCode: ZipCode,
+                            servicesSelected: services,
+                            etniasselected: etnias,
+                            HorarioOperacion: HorarioOperacion,
+                            ReciboMercaderiaDia: ReciboMercaderiaDia,
+                            ReciboMercaderiaArea: ReciboMercaderiaArea,
+                            MuelleDescarga: MuelleDescarga,
+                            TamanoTienda: TamanoTienda,
+                            idrep: rep
+                        }),
+                        success: function (result) {
+                            if (result == "File Uploaded Successfully!") {
+
+                                window.location.href = "@Url.Action("Success", "Home")";
+                                $("#loader_form").hide();
+                                $("#subbtnenviar").attr("disabled", false);
+                            } else {
+                                $("#loader_form").hide();
+                                $("#subbtnenviar").attr("disabled", false);
+                                alert("Something went wrong." + result + " .Please, try again or contact support");
+
+                            }
+
+
+                        },
+                        error: function () {
+                            $("#loader_form").hide();
+                            $("#subbtnenviar").attr("disabled", false);
+                            alert("Something went wrong. Please, contact support")
+                        },
+                    });
+
+
+            });
+        });
+    </script>
+
+    
+
+    <!--SCRIPT PARA GUARDAR IMAGENES TIEMPO REAL -->
+    <script>
+        function dataURItoBlob(dataURI) {
+            'use strict'
+            var byteString,
+                mimestring
+
+            if (dataURI.split(',')[0].indexOf('base64') !== -1) {
+                byteString = atob(dataURI.split(',')[1])
+            } else {
+                byteString = decodeURI(dataURI.split(',')[1])
+            }
+
+            mimestring = dataURI.split(',')[0].split(':')[1].split(';')[0]
+
+            var content = new Array();
+            for (var i = 0; i < byteString.length; i++) {
+                content[i] = byteString.charCodeAt(i)
+            }
+
+            return new Blob([new Uint8Array(content)], { type: mimestring });
+        }
+
+        function isPortrait(img) {
+            var w = img.naturalWidth || img.width,
+                h = img.naturalHeight || img.height;
+            return (h > w);
+        }
+
+        function getOrientation(file, callback) {
+            var reader = new FileReader();
+
+            reader.onload = function (event) {
+                var view = new DataView(event.target.result);
+
+                if (view.getUint16(0, false) != 0xFFD8) return callback(-2);
+
+                var length = view.byteLength,
+                    offset = 2;
+
+                while (offset < length) {
+                    var marker = view.getUint16(offset, false);
+                    offset += 2;
+
+                    if (marker == 0xFFE1) {
+                        if (view.getUint32(offset += 2, false) != 0x45786966) {
+                            return callback(-1);
+                        }
+                        var little = view.getUint16(offset += 6, false) == 0x4949;
+                        offset += view.getUint32(offset + 4, little);
+                        var tags = view.getUint16(offset, little);
+                        offset += 2;
+
+                        for (var i = 0; i < tags; i++)
+                            if (view.getUint16(offset + (i * 12), little) == 0x0112)
+                                return callback(view.getUint16(offset + (i * 12) + 8, little));
+                    }
+                    else if ((marker & 0xFF00) != 0xFF00) break;
+                    else offset += view.getUint16(offset, false);
+                }
+                return callback(-1);
+            };
+
+            reader.readAsArrayBuffer(file.slice(0, 64 * 1024));
+        };
+
+
+        var drEvent = $('.dropifyIMG').dropify();
+
+        drEvent.on('dropify.afterClear', function (event, element) {
+            $('#divprogress_' + this.id).width(0 + '%');
+            $('#imgprogress_' + this.id).html(0 + "%");
+            $('#maindivprogress_' + this.id).css("background-color", "#e9ecef");
+        });
+
+
+        $('input[type=file]').change(function () {
+            //Le decimos que por cada input file que encuentre hara este proceso
+            // Checking whether FormData is available in browser
+            if (window.FormData !== undefined) {
+                //$.each($('input[type="file"]'), function () {
+                var ID = $(this).attr('id');
+                $('#maindivprogress_' + ID).css("background-color", "#e9ecef");
+
+                //COPIAMOS LA IMG A UN IMG INPUT
+                var url = $(this).val();
+                var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+                if ($(this).files && $(this).files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#img_' + ID).attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                } else {
+
+                }
+                //???????
+
+
+
+
+
+                $(this).attr('data-changeflag', '0');
+
+                //COMPRESIONAR IMAGEN
+                var output_format = "jpg";
+
+
+                //**************************
+                var fileUpload = $("#" + ID).get(0);
+                var compania = $("#compania").val();
+
+                if (fileUpload.files[0].type == "image/png") {
+                    output_format = "png";
+                    console.log("es png");
+                }
+
+                //console.log(fileUpload.files[0]);
+                //console.log(fileUpload.files[0].type);
+
+                var quality = parseInt(30);
+                //*****
+                var source_image = document.getElementById('img_' + ID);
+                var result_image = document.getElementById('resultimg_' + ID);
+                var file = fileUpload.files[0];
+                reader = new FileReader();
+                reader.onload = function (event) {
+                    var i = document.getElementById('img_' + ID);
+                    i.src = event.target.result;
+                    i.onload = function () {
+                        image_width = $(i).width(),
+                            image_height = $(i).height();
+
+                        if (image_width > image_height) {
+                            i.style.width = "320px";
+                        } else {
+                            i.style.height = "300px";
+                        }
+
+
+
+
+                        result_image.src = jic.compress(source_image, quality, output_format).src;
+
+                        result_image.onload = function () {
+                            var image_width = $(result_image).width(),
+                                image_height = $(result_image).height();
+
+                            if (image_width > image_height) {
+                                result_image.style.width = "320px";
+                            } else {
+                                result_image.style.height = "300px";
+                            }
+
+
+                            // Create FormData object
+                            var or = 0;
+                            getOrientation(file, function (orientation) {
+
+                                var dataurl = result_image.src;
+                                var blob = dataURItoBlob(dataurl);
+
+                                var idf = $("#idifexist").val();
+
+                                //var files = file;
+
+                                var fileData = new FormData();
+                                if (fileUpload.files[0].type == "image/png") {
+                                    fileData.append("myFile", blob, "IMG.png");
+                                } else {
+                                    fileData.append("myFile", blob, "IMG.jpg");
+                                }
+
+
+                                // Adding one more key to FormData object
+                                fileData.append('id', ID);
+
+                                fileData.append('idcustomer', idf);
+                                fileData.append('compania', compania);
+                                fileData.append('orientation', orientation);
+
+                                //if true rotate to the right
+                                $('#maindivprogress_' + ID).show();
+                                $.ajax({
+                                    url: '/Home/UploadFiles',
+                                    xhr: function () {
+                                        var xhr = new window.XMLHttpRequest();
+                                        xhr.upload.addEventListener("progress", function (evt) {
+                                            if (evt.lengthComputable) {
+                                                var percentComplete = (evt.loaded / evt.total) * 100;
+
+                                                $('#divprogress_' + ID).width(percentComplete + '%');
+                                                $('#imgprogress_' + ID).html(percentComplete.toFixed(2) + "%");
+
+                                            }
+                                        }, false);
+                                        return xhr;
+                                    },
+                                    type: "POST",
+                                    contentType: false, // Not to set any content header
+                                    processData: false, // Not to process data
+                                    //async: true,
+                                    timeout: 80000,
+                                    data: fileData,
+                                    success: function (result) {
+                                        //$("#modal_demoform_saving").modal('hide');
+
+                                        if (result.result == "File Uploaded Successfully!") {
+                                            $('#maindivprogress_' + ID).css("background-color", "#d5ff8c");
+                                            $("#idifexist").val(result.result2);
+                                        } else if (result.result == "Error occurred.") {
+                                            alert("Error uploading photo. Try again");
+                                            $("#idifexist").val(result.result2);
+                                            $('#divprogress_' + ID).width(0 + '%');
+                                            $('#imgprogress_' + ID).html(0 + "%");
+                                            $('#maindivprogress_' + ID).css("background-color", "#e9ecef");
+                                            var drEvent = $('#' + ID).dropify();
+                                            drEvent = drEvent.data('dropify');
+                                            drEvent.resetPreview();
+                                            drEvent.clearElement();
+                                        }
+
+
+                                        //$("#loading").hide();
+                                    },
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        //$("#modal_demoform_saving").modal('hide');
+                                        //alert("An error is reported. Maximum request length exceeded");
+                                        alert("Error uploading image. " + errorThrown + " Por favor intente subir otra imagen.");
+                                        $('#divprogress_' + ID).width(0 + '%');
+                                        $('#imgprogress_' + ID).html(0 + "%");
+                                        //$("#loading").hide();
+                                        $('#maindivprogress_' + ID).css("background-color", "#e9ecef");
+                                        var drEvent = $('#' + ID).dropify();
+                                        drEvent = drEvent.data('dropify');
+                                        drEvent.resetPreview();
+                                        drEvent.clearElement();
+
+                                    }
+
+                                });
+
+                            });
+
+
+
+                        }
+                    }
+                };
+
+                reader.readAsDataURL(file);
+
+
+
+
+
+
+                //});
+
+
+            }
+
+
+            else {
+                alert("FormData is not supported.");
+            }
+
+        });
+
+
+    </script>
+    @if (ViewBag.Title == "Success")
+    {
+        <script type="text/javascript">
+            var count = 8; // Timer
+            var redirect = "https://www.limenainc.net/"; // Target URL
+
+
+            $(document).ready(function () {
+                countDown();
+            });
+
+            function countDown() {
+                var timer = document.getElementById("timer"); // Timer ID
+                if (count > 0) {
+                    count--;
+                    timer.innerHTML = "Seras redireccionado a nuestra pagina principal en " + count + " segundos."; // Timer Message
+                    setTimeout("countDown()", 1000);
+                } else {
+                    window.location.href = redirect;
+                }
+            }
+        </script>
+    }
+
 </body>
 </html>

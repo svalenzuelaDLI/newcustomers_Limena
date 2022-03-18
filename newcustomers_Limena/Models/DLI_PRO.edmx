@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DLI_PROModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="UFD1">
+          <Key>
+            <PropertyRef Name="TableID" />
+            <PropertyRef Name="FieldID" />
+            <PropertyRef Name="IndexID" />
+          </Key>
+          <Property Name="TableID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="FieldID" Type="smallint" Nullable="false" />
+          <Property Name="IndexID" Type="smallint" Nullable="false" />
+          <Property Name="FldValue" Type="nvarchar" MaxLength="254" />
+          <Property Name="Descr" Type="nvarchar" MaxLength="254" />
+          <Property Name="FldDate" Type="datetime" />
+        </EntityType>
+        <EntityContainer Name="DLI_PROModelStoreContainer">
+          <EntitySet Name="UFD1" EntityType="Self.UFD1" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DLI_PROModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DLI_PROEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="UFD1" EntityType="DLI_PROModel.UFD1" />
+        </EntityContainer>
+        <EntityType Name="UFD1">
+          <Key>
+            <PropertyRef Name="TableID" />
+            <PropertyRef Name="FieldID" />
+            <PropertyRef Name="IndexID" />
+          </Key>
+          <Property Name="TableID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FieldID" Type="Int16" Nullable="false" />
+          <Property Name="IndexID" Type="Int16" Nullable="false" />
+          <Property Name="FldValue" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="Descr" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="FldDate" Type="DateTime" Precision="3" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DLI_PROModelStoreContainer" CdmEntityContainer="DLI_PROEntities" >
+          <EntitySetMapping Name="UFD1">
+            <EntityTypeMapping TypeName="DLI_PROModel.UFD1">
+              <MappingFragment StoreEntitySet="UFD1">
+                <ScalarProperty Name="FldDate" ColumnName="FldDate" />
+                <ScalarProperty Name="Descr" ColumnName="Descr" />
+                <ScalarProperty Name="FldValue" ColumnName="FldValue" />
+                <ScalarProperty Name="IndexID" ColumnName="IndexID" />
+                <ScalarProperty Name="FieldID" ColumnName="FieldID" />
+                <ScalarProperty Name="TableID" ColumnName="TableID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

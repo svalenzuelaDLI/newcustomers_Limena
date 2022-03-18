@@ -2,30 +2,545 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<div class="container-fluid full-height">
+    <div class="row row-height">
+        <div class="col-lg-6 content-left">
+            <div class="content-left-wrapper" style="background-image:url(/Content/surveysContent/img/limena/1-HeroA-p-1600.jpeg)">
+                <a href="https://www.limenainc.net/" id="logo"><img src="~/Content/surveysContent/img/limena/LogoLimenaWebIcono_1-p-500x192.png" alt="" style="width:200px"></a>
+                <div id="social">
+                    <ul>
+                        <li><a style="color:#000000; opacity:1; font-size:14px;font-weight:bold;"  class="btn btn-sm btn-warning roundedbtn" href="https://www.limenainc.net">Volver</a></li>
+       
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+                    </ul>
+                </div>
+                <!-- /social -->
+                <div>
+                    <h2 style="color:black">Registrate como cliente</h2>
+                    <p style="color:black">Ten en cuenta que los datos que vas a introducir en este formulario serán tus datos como cliente de Distribuidora Limena Inc y los datos que aparecerán en tus transacciones con nosotros.</p>      
+                    <a href="#start" class="btn_1 rounded mobile_btn">Registrate ahora!</a>
+                </div>
+                <div class="copy">© 2018 Distribuidora Limena Inc</div>
+            </div>
+            <!-- /content-left-wrapper -->
+        </div>
+        <!-- /content-left -->
+        <div class="col-lg-6 content-right" id="start">
+            <input type="text" id="idifexist" value="0" hidden/>
+            <div id="wizard_container">
+
+
+                <div id="top-wizard">
+                    <div id="progressbar"></div>
+                </div>
+
+                <!-- /top-wizard -->
+                <form id="wrapped" method="POST">
+                    <input id="website" name="website" type="text" value="">
+                    <!-- Leave for security protection, read docs for details -->
+                    <div id="middle-wizard">
+                        <div class="step">
+                            <h3 class="main_question">Representante de Ventas (Si fue asistido)</h3>
+                            <div class="form-group">
+                               
+                                    <input class="form-control" name="representante" id="representante" onchange="validateRep()" placeholder="Ingrese codigo"/>
+
+                                  
+                             
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <h3 class="main_question">Nombre de empresa *</h3>
+                                <div class="form-group">
+                                    <input type="text" name="question_1" id="compania" class="form-control required" onchange="getVals(this, 'question_1');">
+                                </div>
+                            </div>
+
+                            <!-- /row -->
+                            <div class="form-group terms">
+                                <label class="container_check">
+                                    Por favor acepta nuestros <a href="#" data-toggle="modal" data-target="#terms-txt">Terminos y condiciones </a>para continuar
+                                    <input type="checkbox" name="terms" value="Yes" class="required">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /step-->
+
+                        <div class="step">
+                            <h3 class="main_question">
+                                <strong>1/7</strong>Datos de contacto
+                            </h3>
+                            <h6>Nombre *</h6>
+                            <div class="form-group">
+                                <input type="text" name="question_2" class="form-control required" onchange="getVals(this, 'question_2');">
+                            </div>
+                            <h6>Apellido *</h6>
+                            <div class="form-group">
+                                <input type="text" name="question_3" class="form-control required" onchange="getVals(this, 'question_3');">
+                            </div>
+                            <h6>Cargo *</h6>
+                            <select class="form-control" id="contactposition" name="contactposition" required>
+                                <option value="Owner">Propietario</option>
+                                <option value="Manager">Gerente General</option>
+                                <option value="Buyer">Comprador</option>
+                                <option value="Main Contact">Contacto Principal</option>
+                                <option value="Alternative Contact">Contacto Alterno</option>
+                            </select>
+                            <h6>Teléfono *</h6>
+                            <div class="form-group">
+                                <input type="text" name="question_5" id="telefono1" class="form-control required" onchange="getVals(this, 'question_5');">
+                            </div>
+                            <h6>Correo electrónico *</h6>
+                            <div class="form-group">
+                                <input type="email" name="question_6" id="correo1" class="form-control required" onchange="getVals(this, 'question_6');">
+                            </div>
+                        </div>
+                        <!-- /step-->
+
+                        <div class="step largediv">
+                            <h3 class="main_question">
+                                <strong>2/7</strong>Datos de la empresa
+                            </h3>
+                            <h6>Teléfono *</h6>
+                            <div class="form-group">
+                                <input type="text" name="question_7" id="telefono2" class="form-control required" onchange="getVals(this, 'question_7');">
+                            </div>
+                            <h6>Correo electrónico *</h6>
+                            <div class="form-group">
+                                <input type="email" name="question_8" id="correo2" class="form-control required" onchange="getVals(this, 'question_8');">
+                            </div>
+                            <h6>Sitio web</h6>
+                            <div class="form-group">
+                                <input type="text" name="question_9" class="form-control" onchange="getVals(this, 'question_9');">
+                            </div>
+                            <h6>UNIFIED FEDERAL TAX ID *</h6>
+                            <div class="form-group">
+                                <input type="text" name="question_10" class="form-control required" onchange="getVals(this, 'question_10');"><br />
+                                <label>Adjunte foto o imagen del documento que contiene el codigo *</label>
+                                <input type="file" data-changeflag="0" class="dropifyIMG required" id="11"  data-max-file-size-preview="15M" data-allowed-file-extensions="png jpg jpeg">
+                                <div class="progress no-bg mt-2 align-items-center circle" id="maindivprogress_11" style="height:15px;display:none;">
+                                    <div id="divprogress_11" class="progress-bar circle gd-danger" style="width: 0%; background-color:khaki"></div>
+                                    <span id="imgprogress_11" class="mx-2">0%</span>
+                                </div>
+                                <img id="img_11" alt="your image" hidden />
+                                <img id="resultimg_11" alt="your image" hidden />
+                            </div>
+
+                            <h6>RESALES TAX CERTIFICATE NUMBER</h6>
+                            <div class="form-group">
+                                <input type="text" name="question_11" class="form-control" onkeyup="getVals(this, 'question_11');"><br />
+                                <label>Adjunte foto o imagen del documento que contiene el codigo (opcional)</label>
+                                <input type="file" data-changeflag="0" class="dropifyIMG" id="12" data-max-file-size-preview="15M" data-allowed-file-extensions="png jpg jpeg">
+                                <div class="progress no-bg mt-2 align-items-center circle" id="maindivprogress_12" style="height:15px;display:none;">
+                                    <div id="divprogress_12" class="progress-bar circle gd-danger" style="width: 0%; background-color:khaki"></div>
+                                    <span id="imgprogress_12" class="mx-2">0%</span>
+                                </div>
+                                <img id="img_12" alt="your image" hidden />
+                                <img id="resultimg_12" alt="your image" hidden />
+                            </div>
+                        </div>
+                        <!-- /step-->
+                        <!-- /step-->
+
+
+                        <div class="step">
+                            <h3 class="main_question"><strong>3/7</strong>Dirección de la empresa</h3>
+                            <h6>País *</h6>
+                            <div class="form-group">
+                                <div class="styled-select clearfix">
+                                    <select class="wide required" id="pais" name="pais" onchange="paisasignar()">
+                                        <option value="">Seleccione País</option>
+                                        <option value="USA">United States</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <h6>ZIP CODE *</h6>
+                            <div class="form-group">
+                                <input type="text" name="question_12" id="ZipCode2" class="form-control required" onchange="getVals(this, 'question_12');">
+                            </div>
+                            <h6>Ciudad *</h6>
+                            <div class="form-group">
+                                <input type="text" name="question_13" id="cityId" class="form-control required" placeholder="Este campo se autocompletara al digitar ZIP CODE" readonly>
+                            </div>
+                            <h6>Estado *</h6>
+                            <div class="form-group">
+                                <input type="text" name="question_14" id="stateId" class="form-control required" placeholder="Este campo se autocompletara al digitar ZIP CODE" readonly>
+                            </div>
+                            <h6>Calle *</h6>
+                            <div class="form-group">
+                                <input type="text" name="question_15" class="form-control required" onchange="getVals(this, 'question_15');">
+                            </div>
+
+                        </div>
+                        <!-- /step-->
+                        <div class="step">
+                            <h3 class="main_question"><strong>4/7</strong>Características de la empresa</h3>
+                            <h6>Horario de operación *</h6>
+                            <div class="form-group">
+                                <input type="text" name="HorarioOperacion" id="HorarioOperacion" class="form-control required" onchange="horarioasignar()" />
+                            </div>
+                            <h6>Día de recibo de mercadería *</h6>
+                            <div class="form-group">
+
+                                <select id="ReciboMercaderiaDia" class="required" style="margin-bottom:10px !important; width:100%" multiple onchange="diaasignar()">
+                                    <option value="Sunday">SUNDAY</option>
+                                    <option value="Monday">MONDAY</option>
+                                    <option value="Tuesday">TUESDAY</option>
+                                    <option value="Wednesday">WEDNESDAY</option>
+                                    <option value="Thursday">THURSDAY</option>
+                                    <option value="Friday">FRIDAY</option>
+                                    <option value="Saturday">SATURDAY</option>
+                                </select>
+
+                            </div>
+
+                            <h6>Área de recibo de mercadería *</h6>
+                            <div class="form-group">
+                                <div class="styled-select clearfix">
+                                    <select class="wide required" id="arearecibo" onchange="areaasignar()">
+                                        <option value="">Seleccione área de recibo de mercadería</option>
+                                        <option value="PUERTA PRINCIPAL (PARTE DELANTERA)">PUERTA PRINCIPAL (PARTE DELANTERA)</option>
+                                        <option value="PUERTA DE DESCARGA (PARTE TRASERA)">PUERTA DE DESCARGA (PARTE TRASERA)</option>
+           
+                                    </select>
+                                </div>
+                            </div>
+                            <h6>Muelle de descarga *</h6>
+                            <div class="form-group">
+                                <label class="container_radio version_2">
+                                    Si
+
+                                    <input type="radio" name="question_25" value="Si" class="required" onchange="getVals(this, 'question_25');">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="container_radio version_2">
+                                    No
+                                    <input type="radio" name="question_25" value="No" class="required" onchange="getVals(this, 'question_25');">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <h6>Tamaño de la tienda *</h6>
+                            <div class="form-group">
+                                <div class="styled-select clearfix">
+                                    <select class="wide required" name="TamanoTienda" id="TamanoTienda" onchange="tamanoasignar()">
+                                        <option value="">Seleccione tamaño de tienda</option>
+                                        @foreach (var item in ViewBag.tamanostienda)
+    {
+                                    <option value="@item.Descr">@item.Descr</option>
+
+}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /step-->
+                        <div class="step">
+                            <h3 class="main_question"><strong>5/7</strong>Servicios de la empresa</h3>
+                            <div class="form-group">
+                                <label class="container_check version_2">
+                                    GROCERY - DRY PRODUCT
+                                    <input type="checkbox" name="question_22[]" value="s1" class="required" onchange="getVals(this, 'question_22');">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="container_check version_2">
+                                    DAIRY SECTION
+                                    <input type="checkbox" name="question_22[]" value="s2" class="required" onchange="getVals(this, 'question_22');">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="container_check version_2">
+                                    FROZEN SECTION
+                                    <input type="checkbox" name="question_22[]" value="s3" class="required" onchange="getVals(this, 'question_22');">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="container_check version_2">
+                                    PRODUCE
+                                    <input type="checkbox" name="question_22[]" value="s4" class="required" onchange="getVals(this, 'question_22');">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="container_check version_2">
+                                    MEAT DEPARTAMENT
+                                    <input type="checkbox" name="question_22[]" value="s5" class="required" onchange="getVals(this, 'question_22');">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="container_check version_2">
+                                    RESTAURANT
+                                    <input type="checkbox" name="question_22[]" value="s6" class="required" onchange="getVals(this, 'question_22');">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="container_check version_2">
+                                    MONEY SERVICES
+                                    <input type="checkbox" name="question_22[]" value="s7" class="required" onchange="getVals(this, 'question_22');">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="container_check version_2">
+                                    OTC (MEDICINAS)
+                                    <input type="checkbox" name="question_22[]" value="s8" class="required" onchange="getVals(this, 'question_22');">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="container_check version_2">
+                                    KITCHENWARE (UTENSILIOS DE COCINA)
+                                    <input type="checkbox" name="question_22[]" value="s9" class="required" onchange="getVals(this, 'question_22');">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="container_check version_2">
+                                    ETHNIC SOURVENIRS
+                                    <input type="checkbox" name="question_22[]" value="s10" class="required" onchange="getVals(this, 'question_22');">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="container_check version_2">
+                                    CLOTHING
+                                    <input type="checkbox" name="question_22[]" value="s11" class="required" onchange="getVals(this, 'question_22');">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="container_check version_2">
+                                    JEWELRY
+                                    <input type="checkbox" name="question_22[]" value="s12" class="required" onchange="getVals(this, 'question_22');">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="container_check version_2">
+                                    CELLPHONE STORE
+                                    <input type="checkbox" name="question_22[]" value="s13" class="required" onchange="getVals(this, 'question_22');">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+
+
+
+                        </div>
+                        <div class="step">
+                            <h3 class="main_question"><strong>6/7</strong>Etnias que visitan la empresa</h3>
+                            <div class="form-group">
+                                <label class="container_check version_2">
+                                    EL SALVADOR
+                                    <input type="checkbox" name="question_23[]" value="e1" class="required" onchange="getVals(this, 'question_23');">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="container_check version_2">
+                                    GUATEMALA
+                                    <input type="checkbox" name="question_23[]" value="e2" class="required" onchange="getVals(this, 'question_23');">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="container_check version_2">
+                                    COSTA RICA
+                                    <input type="checkbox" name="question_23[]" value="e3" class="required" onchange="getVals(this, 'question_23');">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="container_check version_2">
+                                    MEXICO
+                                    <input type="checkbox" name="question_23[]" value="e4" class="required" onchange="getVals(this, 'question_23');">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="container_check version_2">
+                                    COLOMBIA
+                                    <input type="checkbox" name="question_23[]" value="e5" class="required" onchange="getVals(this, 'question_23');">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="container_check version_2">
+                                    PERU
+                                    <input type="checkbox" name="question_23[]" value="e6" class="required" onchange="getVals(this, 'question_23');">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="container_check version_2">
+                                    VENEZUELA
+                                    <input type="checkbox" name="question_23[]" value="e7" class="required" onchange="getVals(this, 'question_23');">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="container_check version_2">
+                                    CUBA
+                                    <input type="checkbox" name="question_23[]" value="e8" class="required" onchange="getVals(this, 'question_23');">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="container_check version_2">
+                                    PUERTO RICO
+                                    <input type="checkbox" name="question_23[]" value="e9" class="required" onchange="getVals(this, 'question_23');">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="container_check version_2">
+                                    HONDURAS
+                                    <input type="checkbox" name="question_23[]" value="e10" class="required" onchange="getVals(this, 'question_23');">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+
+
+
+
+                        </div>
+
+
+                        <div class="submit step">
+
+                            <h3 class="main_question"><strong>7/7</strong>Resumen</h3>
+                            <div class="summary">
+                                <ul>
+                                    <li>
+                                        <h5>Nombre de empresa</h5>
+                                        <p id="question_1"></p>
+                                    </li>
+                                    <li><h3 class="main_question">Datos de contacto</h3></li>
+                                    <li>
+                                        <h5>Nombre</h5>
+                                        <p id="question_2"></p>
+                                    </li>
+                                    <li>
+                                        <h5>Apellido</h5>
+                                        <p id="question_3"></p>
+                                    </li>
+                                    @*<li>
+                                        <h5>Cargo</h5>
+                                        <p id="question_4"></p>
+                                    </li>*@
+                                    <li>
+                                        <h5>Teléfono</h5>
+                                        <p id="question_5"></p>
+                                    </li>
+                                    <li>
+                                        <h5>Correo electrónico</h5>
+                                        <p id="question_6"></p>
+                                    </li>
+
+                                    <li><h3 class="main_question">Datos de la empresa</h3></li>
+                                    <li>
+
+                                        <h5>Teléfono</h5>
+                                        <p id="question_7"></p>
+                                    </li>
+                                    <li>
+                                        <h5>Correo electrónico</h5>
+                                        <p id="question_8"></p>
+                                    </li>
+                                    <li>
+                                        <h5>Sitio web</h5>
+                                        <p id="question_9"></p>
+                                    </li>
+                                    <li>
+                                        <h5>UNIFIED FEDERAL TAX ID</h5>
+                                        <p id="question_10"></p>
+                                    </li>
+                                    <li>
+                                        <h5>RESALES TAX CERTIFICATE NUMBER</h5>
+                                        <p id="question_11"></p>
+                                    </li>
+                                    <li><h3 class="main_question">Dirección de la empresa</h3></li>
+                                    <li>
+
+                                        <h5>País</h5>
+                                        <p id="paisshow"></p>
+                                    </li>
+                                    <li>
+                                        <h5>ZIP CODE</h5>
+                                        <p id="question_12"></p>
+                                    </li>
+                                    <li>
+                                        <h5>Ciudad</h5>
+                                        <p id="question_13"></p>
+                                    </li>
+                                    <li>
+                                        <h5>Estado</h5>
+                                        <p id="question_14"></p>
+                                    </li>
+                                    <li>
+                                        <h5>Calle </h5>
+                                        <p id="question_15"></p>
+                                    </li>
+                                    <li><h3 class="main_question">Características de la empresa</h3></li>
+                                    <li>
+
+                                        <h5>Horario de operacion </h5>
+                                        <p id="horarioshow">00:00 - 23:59</p>
+                                    </li>
+                                    <li>
+                                        <h5>Día de recibo de mercadería </h5>
+                                        <p id="diareciboshow"></p>
+                                    </li>
+                                    <li>
+                                        <h5>Area de recibo de mercadería </h5>
+                                        <p id="areashow"></p>
+                                    </li>
+                                    <li>
+                                        <h5>Muelle de descarga </h5>
+                                        <p id="question_25"></p>
+                                    </li>
+                                    <li>
+                                        <h5>Tamaño de la tienda </h5>
+                                        <p id="tamanoshow"></p>
+                                    </li>
+                                    <li>
+
+                                        <h5>Servicios de la empresa </h5>
+                                        <p id="question_22" hidden></p>
+                                        <p id="question_servicios"></p>
+                                    </li>
+                                    <li>
+
+                                        <h5>Etnias que visitan la empresa </h5>
+                                        <p id="question_23" hidden></p>
+                                        <p id="question_etnias"></p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /step-->
+                    </div>
+                    <!-- /middle-wizard -->
+                    <div id="bottom-wizard">
+                        <button type="button" name="backward" class="backward">Anterior</button>
+                        <button type="button" name="forward" class="forward">Siguiente</button>
+                        <button type="submit" id="subbtnenviar" name="process" class="submit">Enviar</button>
+                    </div>
+                    <!-- /bottom-wizard -->
+                </form>
+            </div>
+            <!-- /Wizard container -->
+        </div>
+        <!-- /content-right-->
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+    <!-- /row-->
 </div>
