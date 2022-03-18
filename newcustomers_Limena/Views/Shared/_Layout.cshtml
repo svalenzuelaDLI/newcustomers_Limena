@@ -202,12 +202,18 @@
 
                 if ($zval.length == 5) {
                     $jCSval = getCityState($zval, true);
+                } else {
+                    $('#stateId').val("");
+                    $('#question_14').text("");
+                    $('#cityId').val("");
+                    $('#question_13').text("");
                 }
             });
 
             function getCityState($zip, $blnUSA) {
+         
                 var date = new Date();
-                $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?address=' + $zip + '&key=AIzaSyC3zDvE8enJJUHLSmhFAdWhPRy_tNSdQ6g&type=json&_=' + date.getTime(), function (response) {
+                $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?sensor=true&components=country:US&address=' + $zip + '&key=AIzaSyC3zDvE8enJJUHLSmhFAdWhPRy_tNSdQ6g&type=json&_=' + date.getTime(), function (response) {
                     //find the city and state
                     var address_components = response.results[0].address_components;
                     $.each(address_components, function (index, component) {
@@ -230,6 +236,8 @@
                         });
                     });
 
+
+
                     //pre-fill the city and state
                     if (hascity == 1) {
                         $('#cityId').val(city);
@@ -246,6 +254,8 @@
                     //reset
                     var hascity = 0;
                     var hassub = 0;
+              
+
                 });
             }
 
