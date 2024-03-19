@@ -194,6 +194,7 @@
             var hascity = 0;
             var hassub = 0;
             var state = '';
+            var statecode = '';
             var nbhd = '';
             var subloc = '';
 
@@ -225,6 +226,7 @@
                             }
                             if (type == 'administrative_area_level_1') {
                                 state = component.long_name;
+                                statecode = component.short_name;
                             }
                             if (type == 'neighborhood') {
                                 nbhd = component.long_name;
@@ -249,7 +251,9 @@
                         $('#cityId').val(nbhd);
                         $('#question_13').text(nbhd);
                     }
-                    $('#stateId').val(state);
+                    console.log(state)
+                    console.log(statecode)
+                    $('#stateId').val(statecode);
                     $('#question_14').text(state);
                     //reset
                     var hascity = 0;
@@ -340,15 +344,17 @@
                 $("#loader_form").show();
                 e.preventDefault(e);
                 var idcust = $("#idifexist").val();
+                var urltaxid = $("#urltaxid").val();
+                var urlcertnum = $("#urlcertnumber").val();
                 var CardName = $("#compania").val();
                 var Phone1 = $("#question_7").text().trim();
                 if (Phone1 == null || Phone1 == "") {
-                    Phone1=$("#question_5").text().trim();
+                    Phone1 = $("#question_5").text().trim();
                 }
 
                 var E_Mail = $("#question_8").text().trim();
 
-                if (E_Mail == null || E_Mail=="" ) {
+                if (E_Mail == null || E_Mail == "") {
                     E_Mail = $("#question_6").text().trim();
                 }
 
@@ -361,6 +367,11 @@
                 if (TAXCERTNUM == null) {
                     TAXCERTNUM = "";
                 }
+
+
+               
+
+
                 //Datos de contacto
                 var FirstName = $("#question_2").text().trim();
                 var LastName = $("#question_3").text().trim();
@@ -369,16 +380,45 @@
                 var E_MailL = $("#question_6").text().trim();
                 //Direccion
                 var countryId = $("#paisshow").text().trim();
-                var stateId = $("#question_14").text().trim();
+                var stateId = $("#stateId").val().trim();
                 var cityId = $("#question_13").text().trim();
                 var Street = $("#question_15").text().trim();
                 var ZipCode = $("#question_12").text().trim();
 
                 //Verificamos servicios seleccionados
                 var services = $("#question_22").text().trim();
+                var arrayServices = services.split(',');
+                var arrayfinalServices = [];
+                //convertimos a lista
+                arrayServices.forEach(function (service) {
+                    var fields = service.split('~');
+
+                    var code = fields[0];
+                    var name = fields[1];
+                    var objectServ = { code: code, name: name }
+                    arrayfinalServices.push(objectServ);
+                 
+                    console.log(objectServ)
+                })
+
                 //Verificamos Etnias seleccionadas
                 var etnias = $("#question_23").text().trim();
+                var arrayEtnias = etnias.split(',');
+                var arrayfinalEtnias = [];
+                //convertimos a lista
+                arrayEtnias.forEach(function (etnia) {
+                    var fields = etnia.split('~');
 
+                    var code = fields[0];
+                    var name = fields[1];
+                    var objectServ = { code: code, name: name }
+                    arrayfinalEtnias.push(objectServ);
+              
+                })
+
+
+                console.log("servicios", arrayfinalServices)
+                console.log("etnias", arrayfinalEtnias)
                 //OTROS
                 var HorarioOperacion = $("#horarioshow").text().trim();
                 var ReciboMercaderiaDia = $("#diareciboshow").text().trim();
@@ -410,14 +450,20 @@
                 //int idcustomer, string CardName, string Phone1, string E_Mail, string IntrntSite, string TAXID, string TAXCERTNUM, string FirstName, string LastName, string Position,
                 //string Tel1, string E_MailL, string countryId, string stateId, string cityId, string Street, string ZipCode, string servicesSelected,
                 //string etniasselected, string HorarioOperacion, string ReciboMercaderiaDia, string ReciboMercaderiaArea, Boolean MuelleDescarga, string TamanoTienda
-                $.ajax
+
+                if (TAXCERTNUM == TAXID) {
+                    alert("UNIFIED FEDERAL TAX ID AND RESALES TAX CERTIFICATE NUMBER MUST BE DIFFERENT.");
+                    $("#loader_form").hide();
+                    $("#subbtnenviar").attr("disabled", false);
+                } else {
+                         $.ajax
                     ({
-                        url: '/Home/UpdateInformationNewCustomer',
+                        url: '/Home/createnewcustomer',
                         type: 'POST',
                         datatype: 'application/json',
                         contentType: 'application/json',
                         data: JSON.stringify({
-                            idcustomer: idcust,
+                           // idcustomer: idcust,
                             CardName: CardName,
                             Phone1: Phone1,
                             E_Mail: E_Mail,
@@ -434,13 +480,15 @@
                             cityId: cityId,
                             Street: Street,
                             ZipCode: ZipCode,
-                            servicesSelected: services,
-                            etniasselected: etnias,
+                            servicesSelected: arrayfinalServices,
+                            etniasselected: arrayfinalEtnias,
                             HorarioOperacion: HorarioOperacion,
                             ReciboMercaderiaDia: ReciboMercaderiaDia,
                             ReciboMercaderiaArea: ReciboMercaderiaArea,
                             MuelleDescarga: MuelleDescarga,
                             TamanoTienda: TamanoTienda,
+                            Urltaxid: urltaxid,
+                            Urlcertnum: urlcertnum,
                             idrep: rep
                         }),
                         success: function (result) {
@@ -464,6 +512,9 @@
                             alert("Something went wrong. Please, contact support")
                         },
                     });
+                }
+
+           
 
 
             });
@@ -548,7 +599,8 @@
         });
 
 
-        $('input[type=file]').change(function () {
+        //$('.ghjghjhjghj').change(function () {
+        $('input[type=file]#11').change(function () {
             //Le decimos que por cada input file que encuentre hara este proceso
             // Checking whether FormData is available in browser
             if (window.FormData !== undefined) {
@@ -658,7 +710,7 @@
                                 //if true rotate to the right
                                 $('#maindivprogress_' + ID).show();
                                 $.ajax({
-                                    url: '/Home/UploadFiles',
+                                    url: '/Home/UploadFilesAPI',
                                     xhr: function () {
                                         var xhr = new window.XMLHttpRequest();
                                         xhr.upload.addEventListener("progress", function (evt) {
@@ -681,12 +733,215 @@
                                     success: function (result) {
                                         //$("#modal_demoform_saving").modal('hide');
 
-                                        if (result.result == "File Uploaded Successfully!") {
+                                        if (result.result != "Error") {
                                             $('#maindivprogress_' + ID).css("background-color", "#d5ff8c");
-                                            $("#idifexist").val(result.result2);
-                                        } else if (result.result == "Error occurred.") {
+
+                                            console.log("URL", result.result)
+
+                                            $("#urltaxid").val(result.result);
+                                        } else  {
+
                                             alert("Error uploading photo. Try again");
-                                            $("#idifexist").val(result.result2);
+                                            $("#urltaxid").val("");
+                                            $('#divprogress_' + ID).width(0 + '%');
+                                            $('#imgprogress_' + ID).html(0 + "%");
+                                            $('#maindivprogress_' + ID).css("background-color", "#e9ecef");
+                                            var drEvent = $('#' + ID).dropify();
+                                            drEvent = drEvent.data('dropify');
+                                            drEvent.resetPreview();
+                                            drEvent.clearElement();
+                                        }
+
+
+                                        //$("#loading").hide();
+                                    },
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        //$("#modal_demoform_saving").modal('hide');
+                                        //alert("An error is reported. Maximum request length exceeded");
+                                        alert("Error uploading image. " + errorThrown + " Por favor intente subir otra imagen.");
+                                        $('#divprogress_' + ID).width(0 + '%');
+                                        $('#imgprogress_' + ID).html(0 + "%");
+                                        //$("#loading").hide();
+                                        $('#maindivprogress_' + ID).css("background-color", "#e9ecef");
+                                        var drEvent = $('#' + ID).dropify();
+                                        drEvent = drEvent.data('dropify');
+                                        drEvent.resetPreview();
+                                        drEvent.clearElement();
+
+                                    }
+
+                                });
+
+                            });
+
+
+
+                        }
+                    }
+                };
+
+                reader.readAsDataURL(file);
+
+
+
+
+
+
+                //});
+
+
+            }
+
+
+            else {
+                alert("FormData is not supported.");
+            }
+
+        });
+
+
+
+        //$('.ghjghjhjghj').change(function () {
+        $('input[type=file]#12').change(function () {
+            //Le decimos que por cada input file que encuentre hara este proceso
+            // Checking whether FormData is available in browser
+            if (window.FormData !== undefined) {
+                //$.each($('input[type="file"]'), function () {
+                var ID = $(this).attr('id');
+                $('#maindivprogress_' + ID).css("background-color", "#e9ecef");
+
+                //COPIAMOS LA IMG A UN IMG INPUT
+                var url = $(this).val();
+                var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+                if ($(this).files && $(this).files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#img_' + ID).attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                } else {
+
+                }
+                //???????
+
+
+
+
+
+                $(this).attr('data-changeflag', '0');
+
+                //COMPRESIONAR IMAGEN
+                var output_format = "jpg";
+
+
+                //**************************
+                var fileUpload = $("#" + ID).get(0);
+                var compania = $("#compania").val();
+
+                if (fileUpload.files[0].type == "image/png") {
+                    output_format = "png";
+                    console.log("es png");
+                }
+
+                //console.log(fileUpload.files[0]);
+                //console.log(fileUpload.files[0].type);
+
+                var quality = parseInt(30);
+                //*****
+                var source_image = document.getElementById('img_' + ID);
+                var result_image = document.getElementById('resultimg_' + ID);
+                var file = fileUpload.files[0];
+                reader = new FileReader();
+                reader.onload = function (event) {
+                    var i = document.getElementById('img_' + ID);
+                    i.src = event.target.result;
+                    i.onload = function () {
+                        image_width = $(i).width(),
+                            image_height = $(i).height();
+
+                        if (image_width > image_height) {
+                            i.style.width = "320px";
+                        } else {
+                            i.style.height = "300px";
+                        }
+
+
+
+
+                        result_image.src = jic.compress(source_image, quality, output_format).src;
+
+                        result_image.onload = function () {
+                            var image_width = $(result_image).width(),
+                                image_height = $(result_image).height();
+
+                            if (image_width > image_height) {
+                                result_image.style.width = "320px";
+                            } else {
+                                result_image.style.height = "300px";
+                            }
+
+
+                            // Create FormData object
+                            var or = 0;
+                            getOrientation(file, function (orientation) {
+
+                                var dataurl = result_image.src;
+                                var blob = dataURItoBlob(dataurl);
+
+                                var idf = $("#idifexist").val();
+
+                                //var files = file;
+
+                                var fileData = new FormData();
+                                if (fileUpload.files[0].type == "image/png") {
+                                    fileData.append("myFile", blob, "IMG.png");
+                                } else {
+                                    fileData.append("myFile", blob, "IMG.jpg");
+                                }
+
+
+                                // Adding one more key to FormData object
+                                fileData.append('id', ID);
+
+                                fileData.append('idcustomer', idf);
+                                fileData.append('compania', compania);
+                                fileData.append('orientation', orientation);
+
+                                //if true rotate to the right
+                                $('#maindivprogress_' + ID).show();
+                                $.ajax({
+                                    url: '/Home/UploadFilesAPI',
+                                    xhr: function () {
+                                        var xhr = new window.XMLHttpRequest();
+                                        xhr.upload.addEventListener("progress", function (evt) {
+                                            if (evt.lengthComputable) {
+                                                var percentComplete = (evt.loaded / evt.total) * 100;
+
+                                                $('#divprogress_' + ID).width(percentComplete + '%');
+                                                $('#imgprogress_' + ID).html(percentComplete.toFixed(2) + "%");
+
+                                            }
+                                        }, false);
+                                        return xhr;
+                                    },
+                                    type: "POST",
+                                    contentType: false, // Not to set any content header
+                                    processData: false, // Not to process data
+                                    //async: true,
+                                    timeout: 80000,
+                                    data: fileData,
+                                    success: function (result) {
+                                        //$("#modal_demoform_saving").modal('hide');
+
+                                        if (result.result != "Error") {
+                                            $('#maindivprogress_' + ID).css("background-color", "#d5ff8c");
+                                            $("#urlcertnumber").val(result.result);
+
+                                        } else  {
+                                            alert("Error uploading photo. Try again");
+                                            $("#urlcertnumber").val("");
                                             $('#divprogress_' + ID).width(0 + '%');
                                             $('#imgprogress_' + ID).html(0 + "%");
                                             $('#maindivprogress_' + ID).css("background-color", "#e9ecef");

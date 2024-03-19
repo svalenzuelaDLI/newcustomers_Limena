@@ -1,5 +1,7 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    List<newcustomers_Limena.Models.API.Properties.Etnias> lstEtnias = (List<newcustomers_Limena.Models.API.Properties.Etnias>)ViewBag.etnias;
+    List<newcustomers_Limena.Models.API.Properties.Services> lstServices = (List<newcustomers_Limena.Models.API.Properties.Services>)ViewBag.services;
 }
 
 <div class="container-fluid full-height">
@@ -26,7 +28,9 @@
         </div>
         <!-- /content-left -->
         <div class="col-lg-6 content-right" id="start">
-            <input type="text" id="idifexist" value="0" hidden/>
+            <input type="text" id="idifexist" value="0" hidden />
+            <input type="text" id="urltaxid" value="" hidden />
+            <input type="text" id="urlcertnumber" value="" hidden />
             <div id="wizard_container">
 
 
@@ -42,11 +46,11 @@
                         <div class="step">
                             <h3 class="main_question">Representante de Ventas (Si fue asistido)</h3>
                             <div class="form-group">
-                               
-                                    <input class="form-control" name="representante" id="representante" onchange="validateRep()" placeholder="Ingrese codigo"/>
 
-                                  
-                             
+                                <input class="form-control" name="representante" id="representante" onchange="validateRep()" placeholder="Ingrese codigo" />
+
+
+
 
                             </div>
 
@@ -120,7 +124,7 @@
                             <div class="form-group">
                                 <input type="text" name="question_10" class="form-control required" onchange="getVals(this, 'question_10');"><br />
                                 <label>Adjunte foto o imagen del documento que contiene el codigo *</label>
-                                <input type="file" data-changeflag="0" class="dropifyIMG required" id="11"  data-max-file-size-preview="15M" data-allowed-file-extensions="png jpg jpeg">
+                                <input type="file" data-changeflag="0" class="dropifyIMG required" id="11" data-max-file-size-preview="15M" data-allowed-file-extensions="png jpg jpeg">
                                 <div class="progress no-bg mt-2 align-items-center circle" id="maindivprogress_11" style="height:15px;display:none;">
                                     <div id="divprogress_11" class="progress-bar circle gd-danger" style="width: 0%; background-color:khaki"></div>
                                     <span id="imgprogress_11" class="mx-2">0%</span>
@@ -129,11 +133,11 @@
                                 <img id="resultimg_11" alt="your image" hidden />
                             </div>
 
-                            <h6>RESALES TAX CERTIFICATE NUMBER</h6>
+                            <h6>RESALES TAX CERTIFICATE NUMBER *</h6>
                             <div class="form-group">
-                                <input type="text" name="question_11" class="form-control" onkeyup="getVals(this, 'question_11');"><br />
-                                <label>Adjunte foto o imagen del documento que contiene el codigo (opcional)</label>
-                                <input type="file" data-changeflag="0" class="dropifyIMG" id="12" data-max-file-size-preview="15M" data-allowed-file-extensions="png jpg jpeg">
+                                <input type="text" name="question_11" class="form-control required" onkeyup="getVals(this, 'question_11');"><br />
+                                <label>Adjunte foto o imagen del documento que contiene el codigo *</label>
+                                <input type="file" data-changeflag="0" class="dropifyIMG required" id="12" data-max-file-size-preview="15M" data-allowed-file-extensions="png jpg jpeg">
                                 <div class="progress no-bg mt-2 align-items-center circle" id="maindivprogress_12" style="height:15px;display:none;">
                                     <div id="divprogress_12" class="progress-bar circle gd-danger" style="width: 0%; background-color:khaki"></div>
                                     <span id="imgprogress_12" class="mx-2">0%</span>
@@ -204,7 +208,7 @@
                                         <option value="">Seleccione área de recibo de mercadería</option>
                                         <option value="PUERTA PRINCIPAL (PARTE DELANTERA)">PUERTA PRINCIPAL (PARTE DELANTERA)</option>
                                         <option value="PUERTA DE DESCARGA (PARTE TRASERA)">PUERTA DE DESCARGA (PARTE TRASERA)</option>
-           
+
                                     </select>
                                 </div>
                             </div>
@@ -230,10 +234,10 @@
                                     <select class="wide required" name="TamanoTienda" id="TamanoTienda" onchange="tamanoasignar()">
                                         <option value="">Seleccione tamaño de tienda</option>
                                         @foreach (var item in ViewBag.tamanostienda)
-    {
+                                {
                                     <option value="@item.Descr">@item.Descr</option>
 
-}
+                        }
                                     </select>
                                 </div>
                             </div>
@@ -241,175 +245,45 @@
                         <!-- /step-->
                         <div class="step">
                             <h3 class="main_question"><strong>5/7</strong>Servicios de la empresa</h3>
-                            <div class="form-group">
-                                <label class="container_check version_2">
-                                    GROCERY - DRY PRODUCT
-                                    <input type="checkbox" name="question_22[]" value="s1" class="required" onchange="getVals(this, 'question_22');">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="container_check version_2">
-                                    DAIRY SECTION
-                                    <input type="checkbox" name="question_22[]" value="s2" class="required" onchange="getVals(this, 'question_22');">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="container_check version_2">
-                                    FROZEN SECTION
-                                    <input type="checkbox" name="question_22[]" value="s3" class="required" onchange="getVals(this, 'question_22');">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="container_check version_2">
-                                    PRODUCE
-                                    <input type="checkbox" name="question_22[]" value="s4" class="required" onchange="getVals(this, 'question_22');">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="container_check version_2">
-                                    MEAT DEPARTAMENT
-                                    <input type="checkbox" name="question_22[]" value="s5" class="required" onchange="getVals(this, 'question_22');">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="container_check version_2">
-                                    RESTAURANT
-                                    <input type="checkbox" name="question_22[]" value="s6" class="required" onchange="getVals(this, 'question_22');">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="container_check version_2">
-                                    MONEY SERVICES
-                                    <input type="checkbox" name="question_22[]" value="s7" class="required" onchange="getVals(this, 'question_22');">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="container_check version_2">
-                                    OTC (MEDICINAS)
-                                    <input type="checkbox" name="question_22[]" value="s8" class="required" onchange="getVals(this, 'question_22');">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="container_check version_2">
-                                    KITCHENWARE (UTENSILIOS DE COCINA)
-                                    <input type="checkbox" name="question_22[]" value="s9" class="required" onchange="getVals(this, 'question_22');">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="container_check version_2">
-                                    ETHNIC SOURVENIRS
-                                    <input type="checkbox" name="question_22[]" value="s10" class="required" onchange="getVals(this, 'question_22');">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="container_check version_2">
-                                    CLOTHING
-                                    <input type="checkbox" name="question_22[]" value="s11" class="required" onchange="getVals(this, 'question_22');">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="container_check version_2">
-                                    JEWELRY
-                                    <input type="checkbox" name="question_22[]" value="s12" class="required" onchange="getVals(this, 'question_22');">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="container_check version_2">
-                                    CELLPHONE STORE
-                                    <input type="checkbox" name="question_22[]" value="s13" class="required" onchange="getVals(this, 'question_22');">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
+                            @if (lstServices != null)
+                    {
+                        if (lstServices.Count > 0)
+                        {
+                            foreach (var item in lstServices)
+                            {
 
-
+                                <div class="form-group">
+                                    <label class="container_check version_2">
+                                        @item.name
+                                        <input type="checkbox" name="question_22[]" value="@item.code~@item.name" class="required" onchange="getVals(this, 'question_22');">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                    }
+                }
+            }
 
                         </div>
                         <div class="step">
                             <h3 class="main_question"><strong>6/7</strong>Etnias que visitan la empresa</h3>
-                            <div class="form-group">
-                                <label class="container_check version_2">
-                                    EL SALVADOR
-                                    <input type="checkbox" name="question_23[]" value="e1" class="required" onchange="getVals(this, 'question_23');">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="container_check version_2">
-                                    GUATEMALA
-                                    <input type="checkbox" name="question_23[]" value="e2" class="required" onchange="getVals(this, 'question_23');">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="container_check version_2">
-                                    COSTA RICA
-                                    <input type="checkbox" name="question_23[]" value="e3" class="required" onchange="getVals(this, 'question_23');">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="container_check version_2">
-                                    MEXICO
-                                    <input type="checkbox" name="question_23[]" value="e4" class="required" onchange="getVals(this, 'question_23');">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="container_check version_2">
-                                    COLOMBIA
-                                    <input type="checkbox" name="question_23[]" value="e5" class="required" onchange="getVals(this, 'question_23');">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="container_check version_2">
-                                    PERU
-                                    <input type="checkbox" name="question_23[]" value="e6" class="required" onchange="getVals(this, 'question_23');">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="container_check version_2">
-                                    VENEZUELA
-                                    <input type="checkbox" name="question_23[]" value="e7" class="required" onchange="getVals(this, 'question_23');">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="container_check version_2">
-                                    CUBA
-                                    <input type="checkbox" name="question_23[]" value="e8" class="required" onchange="getVals(this, 'question_23');">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="container_check version_2">
-                                    PUERTO RICO
-                                    <input type="checkbox" name="question_23[]" value="e9" class="required" onchange="getVals(this, 'question_23');">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="container_check version_2">
-                                    HONDURAS
-                                    <input type="checkbox" name="question_23[]" value="e10" class="required" onchange="getVals(this, 'question_23');">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
+                            @if (lstEtnias != null)
+                    {
+                        if (lstEtnias.Count > 0)
+                        {
+                            foreach (var item in lstEtnias)
+                            {
 
 
+                                <div class="form-group">
+                                    <label class="container_check version_2">
+                                        @item.name
+                                        <input type="checkbox" name="question_23[]" value="@item.code~@item.name" class="required" onchange="getVals(this, 'question_23');">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                    }
+                }
+            }
 
 
                         </div>
@@ -434,9 +308,9 @@
                                         <p id="question_3"></p>
                                     </li>
                                     @*<li>
-                                        <h5>Cargo</h5>
-                                        <p id="question_4"></p>
-                                    </li>*@
+                                    <h5>Cargo</h5>
+                                    <p id="question_4"></p>
+                                </li>*@
                                     <li>
                                         <h5>Teléfono</h5>
                                         <p id="question_5"></p>
